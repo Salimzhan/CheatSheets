@@ -1,0 +1,317 @@
+Linux Cheat Sheet
+1. Работа с Терминалом:
+man – помощь
+info – тоже помощь
+uptime - время с последнего включения
+lscpu – данные процессора
+whatis – показывает что делает команда
+whereis – показывает где файл
+locate – показывает где файл
+ls - показать что в этой директории
+ls –la –R / - показать все на компьютере
+Ctrl+Z - отправить процесс на background
+Ctrl+C – прекратить процесс вообще
+ps - какие процессы запущены
+
+2. Навигация по файлам и директориям:
+cd - сменить директорию
+ls – вывести содержимое директории
+pwd – вывести путь где мы сейчас
+~ - сокращение нашей Home директории
+/ - коренная директория Linux
+.. - директория которая выше 
+. - директория где мы сейчас
+
+3. Работа с Директориями:
+mkdir – создать директорию
+rmdir – стереть пустую директорию
+cp - копировать директорию
+mv - переименовать или перенести директорию
+
+rm –R – стереть не пустую директорию со всем что внутри
+
+sudo rm –R / - замочить систему Linux
+
+4. Создание Линков:
+Создание символичных линков и дубликатов.
+ln - создать дубликат файла 
+ln –s - создать symbolic линк на файл или директорию типа Shortcut
+
+5. Команды: find, cut, sort, wc:
+find - найти файл
+wc - вывести количество строк, слов, байт
+cut – вывести определенное поле из текста
+sort – вывести отсортированный текст
+
+6. Команда grep и Регулярные Выражения:
+grep - поиск определонного слова в файле и вывод строк с этим словом
+Регулярные Выражения:
+[A-Z]* - любое слово из больших букв
+[0-9]* - сколько угодно подряд стоящих цифр 
+[A-Za-z]*@[A-Za-z]*.com – простое выражение емайлов с окончанием .com
+www\.[a-z]*\.com - любой вэб адресс с окончанием .com
+
+7. Перенаправление вывода ввода:
+
+Перенаправление хороших результатов в:
+sort names.txt > names_sorted.txt - отсортирует данные из файла names.txt и запишет в names_sorted.txt (создаст, если не было, или перезапишет, если был такой файл)
+sort names.txt >> names_sorted.txt - запишет в конец файла names_sorted.txt
+
+Перенаправление плохих результатов в:
+2>
+2>>
+
+&> - и плохое, и хорошее в файл
+
+8. Архивирование и Сжатие tar, gzip, bzip2, xz, zip:
+tar cf mytar.tar Folder1 - заархивировать Folder1
+tar xf mytar.tar - разархивировать архив
+gzip / bzip2 / xz – скомпрессировать файл
+gunzip / bunzip2 / unxz – раскомпресировать файл
+
+tar cvzf myBZIP2.bz2 Folder1 – сжать Folder1
+tar xvf myBZIP2.bz2 - распаковать архив
+tar tf myBZIP2.bz2 - посмотреть что внутри архива
+
+zip –r myZIP.zip Folder1 - Запаковать Folder1 в ZIP
+unzip myZIP.zip - Распаковать файл myZIP.zip
+
+9. Процессы и Память:
+top – как Task Manager в Windows
+free - показать состояние памяти в байтах
+free –h - показать состояние памяти в MB, GB
+ps - показать мои процессы 
+ps aux - показать все процессы от всех пользователей
+
+ps aux | grep bash - найти все процессы bash от всех пользователей
+
+10. Редактирование Файлов:
+vi или vim - самый старый и дурацкий редактор
+pico - новый редактов
+nano – самый новый редактор
+
+gedit – как и Notepad в Windows, работает только если есть графический интерфейс
+
+11. Типы аккаунтов и важные файлы:
+sudo - запустить комманду используя Super User права
+su - сменить текушего пользователя
+
+/etc/passwd - тут хранятся все аккаунты
+/etc/shadow - тут хранятся все пароли аккаунтов
+/etc/group - тут хранятся все группы
+
+whoami - показать имя текущего пользователя
+id - показать к каким группам принадлежит пользователь
+who – показать кто сейчас в системе
+w - показать кто сейчас в системе и что делает
+last – показать последние логины
+
+12. Пользователи и Группы:
+useradd -m vasya - создать юзера vasya с домашней директорией
+userdel –r vasya - стереть юзера vasya с его домашней директорией
+/etc/skel - это шаблон домашней директории
+passwd vasya - изменить пароль для юзера vasya
+
+groupadd Programmers - создать группу Programmers
+groupdel Programmers - стереть группу Programmers
+
+usermod –aG Programmers vasya - добавить юзера vasya в группу Programmers
+deluser vasya Programmers - удалить юзера vasya из групы
+
+13. Права Доступа и владения файлами и директориями
+chown – изменить владельца файла / директории
+sudo chown petya dir1/
+chgrp – изменить группу файла / директории
+sudo chgrp Programmers vasya.txt
+сhmod – изменить права доступа на файл / директорию
+
+chmod ugo+x myfile.txt довавить X всем
+сhmod g-rw myfile.txt убрать RW у группы
+chmod o=rw myfile.txt установить RW всем остальным
+u = user
+g = group
+o = other
+a = ugo
+
+
+chmod 777 myfile.txt установить RWX всем
+chmod 741 myfile.txt установить: RWX владельцу, R - - группе, - - X всем остальным
+r = 4
+w = 2
+x = 1
+
+chmod 1777 myDir включить StickyBit
+chmod 0777 myDir выключить StickyBit
+
+14. Сетевые комманды:
+ifconfig - показать мой IP адресс
+ip addr show - показать мой IP адресс
+
+route - показать адресс раутера Gateway
+ping - протестировать коннекшен к адрессу
+host - дать IP адресс вэб сайта
+dig - дать IP адресс вэб сайта
+netstat – выдать сетевые подключения компьютера
+
+sudo apt-get openssh-server
+sudo ufw allow 22
+ssh - подключение к удаленным серверам
+
+15. Скачивание и Установка программ:
+wget - скачать файл из интернета
+
+Ubuntu/Debian/Kali/Mint Linux:
+~~~~~~~~~~~~~~~~~~~~~
+apt-get install - скачать и установить программу
+apt-get remove - удалить программу
+dpkg –i - установить программу из файла .deb
+dpkg –r - удалить программу
+
+RedHat/CenOS Linux:
+~~~~~~~~~~~~~~
+yum install - скачать и установить программу
+yum remove - удалить программу
+rpm –i - установить программу из файла .rpm
+rpm –e - удалить программу
+
+16. Скрипты Linux Bash, Часть-1:
+
+./myscript.sh Vasya Petya Kolya
+
+$0 при этом равен ./myscript.sh
+$1 при этом равен Vasya
+$2 при этом равен Petya
+$3 при этом равен Kolya
+
+myOS=`uname –u` - запускает uname –u и сохраняет результат в переменную myOS
+
+Сохранить ввод пользователя в переменную name:
+read –p “Please enter your name: “ name
+
+Примеры скриптов:
+-------------------
+myscript1.sh:
+#!/bin/bash
+
+echo "Hello this is Message from Script"
+echo "Let's show files in this folder..."
+ls
+xterm &
+ls -l
+
+echo "Done"
+-------------------
+
+Не забудь сделать файл скрипты executive:
+sudo chmod a+x myscript1.sh
+
+Запуск скрипта:
+./myscript1.sh
+
+-------------------
+myscript2.sh:
+#!/bin/bash
+
+mycomputer-"Lenovo G510"
+myOS=$(uname -a)
+
+echo "$myOS"
+
+echo "This script name is $0"
+echo "Privet, $1"
+echo "Hello, $2"
+
+num1=50
+num2=45
+summa=$((num1+num2))
+
+echo "$num1 + $num2 = $summa"
+
+myhost=$(hostname)
+mygtw="8.8.8.8"
+
+ping -c 4 $myhost
+ping -c 4 $mygtw
+
+echo -n "This is done..."
+echo "Really done"
+-------------------
+
+17. Скрипты Linux Bash, Часть-2:
+
+Использование связки
+IF-ELIF-ELSE-FI
+
+Использование CASE
+
+Циклы FOR с коммандой Linux
+Циклы FOR с цифровым промежутке
+Циклы FOR как в С, C++, Java
+Циклы WHILE
+
+
+Примеры скриптов:
+-------------------
+myscript3.sh:
+#!/bin/bash
+
+if [ "$1" == "Vasya" ]; then
+echo "Privet $1"
+elif [ "$1" == "Tom" ]; then
+echo "Hello $1"
+else echo "Bonjour $1"
+fi
+
+read -p "Enter something:" x
+
+echo "Starting CASE selection..."
+case $x in
+1) echo "This is one";;
+[2-9]) echo "Two-Nine";;
+"Petya") echo "Privet $x";;
+*) echo "Parameter Unknown, sorry!"
+esac
+-------------------
+
+myscript4.sh:
+#!/bin/bash
+
+COUNTER=0
+
+while [ $COUNTER -lt 10 ]; do
+echo "Current counter is $COUNTER"
+COUNTER=$(($COUNTER+1))
+# let COUNTER=COUNTER+1
+# let COUNTER+=1
+done
+
+for myfile in ls *.txt; do
+cat $myfile
+done
+
+for x in {1..10}; do
+echo "X = $x"
+done
+
+for (( i=1; i<=10; i++ )); do
+echo "Nomer I = $i"
+done
+-------------------
+
+myscript5.sh:
+#!/bin/bash
+
+summa=0
+
+myFunction()
+{
+echo "This is text from Function!!"
+echo "Num1= $1"
+echo "Num2= $2"
+summa=$(($1+$2))
+}
+
+myFunction 50 10
+echo "Summa = $summa"
+
+
